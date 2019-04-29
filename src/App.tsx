@@ -60,7 +60,7 @@ const App = () => (
     <Camera width={256} height={224} worldHeight={1000} worldWidth={1000}>
       <Suspense fallback={<Text text="Loading..." style={{ fill: 'white' } as any} x={0} y={0} />}>
         <>
-          <Tilemap tilemap="/static/tilemap/test.tmx" />
+          <Tilemap tilemapUrl="/static/tilemap/test.tmx" />
           <Player />
         </>
       </Suspense>
