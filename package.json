@@ -1,0 +1,53 @@
+{
+  "name": "react-typescript-starter",
+  "version": "1.0.0",
+  "description": "A starter project for react using typescript with material-ui",
+  "license": "MIT",
+  "dependencies": {
+    "@inlet/react-pixi": "^0.5.8",
+    "pixi-tiledmap": "^1.10.0",
+    "pixi-viewport": "^3.23.2",
+    "pixi.js": "^4.8.7",
+    "react": "16.8.4",
+    "react-dom": "16.8.4",
+    "react-hot-loader": "^4.8.4",
+    "tiled-to-pixi": "^1.1.0"
+  },
+  "resolutions": {
+    "@inlet/react-pixi": "https://github.com/mattjennings/react-pixi#suspense"
+  },
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "webpack-dev-server --config webpack/dev.config.js --mode development --colors",
+    "postinstall": "cd node_modules/@inlet/react-pixi && yarn; yarn build; rm -rf node_modules"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "@types/pixi.js": "^4.8.7",
+    "@types/react": "^16.8.14",
+    "@types/react-dom": "^16.8.4",
+    "@types/webpack-env": "^1.13.6",
+    "babel-loader": "^8.0.4",
+    "copy-webpack-plugin": "^5.0.3",
+    "css-loader": "^2.1.1",
+    "html-webpack-plugin": "^3.2.0",
+    "prettier": "^1.14.3",
+    "style-loader": "^0.23.1",
+    "ts-loader": "^5.4.4",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.10.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.4.5",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.1",
+    "webpack-dev-server": "^3.3.1",
+    "webpack-merge": "^4.1.2"
+  }
+}

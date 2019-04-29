@@ -1,0 +1,17 @@
+{
+  "extends": ["tslint:latest", "tslint-react", "tslint-eslint-rules", "tslint-config-prettier"],
+  "rules": {
+    "no-unused-variable": true,
+    "no-submodule-imports": false,
+    "no-console": false,
+    "quotemark": false,
+    "interface-name": false,
+    "jsx-wrap-multiline": false,
+    "jsx-no-multiline-js": false,
+    "jsx-no-lambda": false,
+    "jsx-no-bind": false,
+    "no-var-requires": false,
+    "ordered-imports": false,
+    "object-literal-sort-keys": false
+  }
+}
