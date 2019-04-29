@@ -1,4 +1,4 @@
-import { PixiComponent, Sprite, Stage, Text } from '@inlet/react-pixi'
+import { PixiComponent, Sprite, Stage, Text, useApp, useTick } from '@inlet/react-pixi'
 import React, { Suspense, useContext, useState, useEffect } from 'react'
 import Tilemap from './components/Tilemap'
 import Camera, { CameraContext } from './components/Camera'
@@ -6,44 +6,56 @@ import Input from './components/Input'
 
 const Player = () => {
   const { camera } = useContext(CameraContext)
+  const [x, setX] = useState(0)
+  const [y, setY] = useState(0)
+
+  // set initial camera position
+  useEffect(() => {
+    camera.current.moveCenter(x, y)
+  }, [])
+
+  // move camera immediately with new x/y coordinates
+  if (camera.current) {
+    camera.current.moveCenter(x, y)
+  }
 
   return (
     <>
-      {/* A */}
+      {/* D */}
       <Input
         keyCode={68}
         onDown={() => {
-          camera.current.moveCorner(camera.current.corner.x + 2, camera.current.corner.y)
+          setX(x + 2)
         }}
       />
-      {/* D */}
+      {/* A */}
       <Input
         keyCode={65}
         onDown={() => {
-          camera.current.moveCorner(camera.current.corner.x - 2, camera.current.corner.y)
+          setX(x - 2)
         }}
       />
       {/* W */}
       <Input
         keyCode={87}
         onDown={() => {
-          camera.current.moveCorner(camera.current.corner.x, camera.current.corner.y - 2)
+          setY(y - 2)
         }}
       />
       {/* S */}
       <Input
         keyCode={83}
         onDown={() => {
-          camera.current.moveCorner(camera.current.corner.x, camera.current.corner.y + 2)
+          setY(y + 2)
         }}
       />
 
-      <Sprite image="/static/bunny.png" x={100} y={100} />
+      <Sprite image="/static/bunny.png" x={x} y={y} />
     </>
   )
 }
 
-const FirstStage = () => (
+const App = () => (
   <Stage width={256} height={224}>
     <Camera width={256} height={224} worldHeight={1000} worldWidth={1000}>
       <Suspense fallback={<Text text="Loading..." style={{ fill: 'white' } as any} x={0} y={0} />}>
@@ -55,7 +67,5 @@ const FirstStage = () => (
     </Camera>
   </Stage>
 )
-
-const App = () => <FirstStage />
 
 export default App
