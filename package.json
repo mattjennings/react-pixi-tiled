@@ -4,7 +4,7 @@
   "description": "",
   "license": "MIT",
   "dependencies": {
-    "@inlet/react-pixi": "^0.5.8",
+    "@inlet/react-pixi": "^0.5.9",
     "pixi-tiledmap": "^1.10.0",
     "pixi-viewport": "^3.23.2",
     "pixi.js": "^4.8.7",
@@ -13,13 +13,9 @@
     "react-hot-loader": "^4.8.4",
     "tiled-to-pixi": "^1.1.0"
   },
-  "resolutions": {
-    "@inlet/react-pixi": "https://github.com/mattjennings/react-pixi#suspense"
-  },
   "scripts": {
     "start": "npm run dev",
-    "dev": "webpack-dev-server --config webpack/dev.config.js --mode development --colors",
-    "postinstall": "cd node_modules/@inlet/react-pixi && yarn; yarn build; rm -rf node_modules"
+    "dev": "webpack-dev-server --config webpack/dev.config.js --mode development --colors"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",

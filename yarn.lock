@@ -713,9 +713,10 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@inlet/react-pixi@^0.5.8", "@inlet/react-pixi@https://github.com/mattjennings/react-pixi#suspense":
-  version "0.5.8"
-  resolved "https://github.com/mattjennings/react-pixi#f3424361cd25837a777641b9b82c59a3731cddda"
+"@inlet/react-pixi@^0.5.9":
+  version "0.5.9"
+  resolved "https://registry.yarnpkg.com/@inlet/react-pixi/-/react-pixi-0.5.9.tgz#82e2816643cfcb0e0752daca7af76254e7064572"
+  integrity sha512-TsfwKytM4lOCLLJ7dbNGy3cDutZskFIgzcpGg+RlYKpSNaG4abmm6j6t2ehMeUdI48pEjVLrNOO0utmJy/cxvQ==
   dependencies:
     fbjs "^1.0.0"
     performance-now "^2.1.0"
