@@ -21,7 +21,7 @@ export interface TilemapProps {
   tilemapUrl: string
 }
 
-const Tilemap = (props: { tilemapUrl: string }) => {
+const Tilemap = (props: { tilemapUrl: string; children?: any }) => {
   useResources([props.tilemapUrl])
 
   // create tilemap from url
@@ -35,7 +35,12 @@ const Tilemap = (props: { tilemapUrl: string }) => {
     <Container key={index}>{instantiateObjectLayer(layer)}</Container>
   ))
 
-  return <PixiTilemap tilemap={tilemap}>{instantiatedLayers}</PixiTilemap>
+  return (
+    <PixiTilemap tilemap={tilemap}>
+      {instantiatedLayers}
+      {props.children}
+    </PixiTilemap>
+  )
 }
 
 export default Tilemap
