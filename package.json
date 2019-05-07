@@ -18,7 +18,9 @@
   },
   "scripts": {
     "start": "npm run dev",
-    "dev": "webpack-dev-server --config webpack/dev.config.js --mode development --colors"
+    "dev": "webpack-dev-server --config webpack/dev.config.js --mode development --colors",
+    "build": "webpack --config webpack/prod.config.js",
+    "now-build": "yarn build"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
