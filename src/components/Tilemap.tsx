@@ -3,6 +3,8 @@ import React, { Suspense } from 'react'
 import * as PIXI from 'pixi.js'
 import useResources from '../hooks/useResources'
 import Enemy from './Enemy'
+import { useMatterEngine } from './matter/MatterEngine'
+import { Engine, Body, Bodies, World } from 'matter-js'
 
 export interface PixiTilemapProps {
   tilemap: typeof PIXI.extras.TiledMap
@@ -23,12 +25,19 @@ export interface TilemapProps {
 
 const Tilemap = (props: { tilemapUrl: string; children?: any }) => {
   useResources([props.tilemapUrl])
+  const { engine } = useMatterEngine()
 
   // create tilemap from url
   const tilemap = new PIXI.extras.TiledMap(props.tilemapUrl)
+  console.log(tilemap)
 
-  // get object layers
+  // create object layers
   const objectLayers = tilemap.layers.filter(layer => layer.constructor.name === 'ObjectLayer')
+
+  // create bodies from collision layers
+  tilemap.layers
+    .filter(layer => layer.properties.collision)
+    .map(layer => createCollisionLayerBodies(engine.current, layer))
 
   // iterate through each layer and instantiate the objects into components
   const instantiatedLayers = objectLayers.map((layer, index) => (
@@ -57,4 +66,15 @@ function instantiateObjectLayer(objectLayer: any) {
         return null
     }
   })
+}
+
+function createCollisionLayerBodies(engine: Engine, layer: any) {
+  if (layer.constructor.name === 'TileLayer') {
+    layer.tiles.forEach(tile => {
+      if (tile.properties.collision) {
+        const body = Bodies.rectangle(tile.x, tile.y, tile.width, tile.height, { isStatic: true, friction: 0 })
+        World.add(engine.world, body)
+      }
+    })
+  }
 }

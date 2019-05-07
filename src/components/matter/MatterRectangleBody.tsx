@@ -5,8 +5,7 @@ import { useTick } from '@inlet/react-pixi'
 import useForceUpdate from '../../hooks/useForceUpdate'
 
 export interface MatterRectangleBodyRenderArgs {
-  x: number
-  y: number
+  body: Body
 
   setVelocity: (args: { x?: number; y?: number }) => any
 }
@@ -34,8 +33,7 @@ export default function MatterRectangleBody({ x, y, width, height, options, chil
   })
 
   return children({
-    x: body.current.position.x,
-    y: body.current.position.y,
+    body: body.current,
     setVelocity: (args: { x?: number; y?: number }) => {
       Body.setVelocity(body.current, Vector.create(args.x, args.y))
     }

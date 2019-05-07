@@ -5,60 +5,72 @@ import Input from './Input'
 import MatterRectangleBody from './matter/MatterRectangleBody'
 
 const Player = () => {
-  const { camera } = useContext(CameraContext)
-
-  // set initial camera position
-  useEffect(() => {
-    // camera.current.moveCenter(x, y)
-  }, [])
-
-  // move camera immediately with new x/y coordinates
-  if (camera.current) {
-    // camera.current.moveCenter(x, y)
-  }
+  const { camera, moveCamera } = useContext(CameraContext)
 
   return (
-    <MatterRectangleBody x={100} y={100} width={20} height={20} options={{}}>
-      {({ setVelocity, x, y }) => {
-        console.log(x, y)
+    <MatterRectangleBody
+      x={100}
+      y={100}
+      width={20}
+      height={20}
+      options={{
+        inertia: Infinity,
+        friction: 0,
+        frictionStatic: 0
+      }}
+    >
+      {({ setVelocity, body }) => {
+        moveCamera(body.position.x, body.position.y)
         return (
           <>
             {/* D */}
             <Input
               keyCode={68}
               onDown={() => {
-                setVelocity({ x: 2 })
+                setVelocity({ x: 2, y: body.velocity.y })
               }}
               onRelease={() => {
-                setVelocity({ x: 0 })
+                setVelocity({ x: 0, y: body.velocity.y })
               }}
             />
             {/* A */}
             <Input
               keyCode={65}
               onDown={() => {
-                setVelocity({ x: -2 })
+                setVelocity({ x: -2, y: body.velocity.y })
               }}
               onRelease={() => {
-                setVelocity({ x: 0 })
+                setVelocity({ x: 0, y: body.velocity.y })
               }}
             />
             {/* W */}
             <Input
               keyCode={87}
               onDown={() => {
-                // setY(y - 2)
+                setVelocity({ y: -2, x: body.velocity.x })
+              }}
+              onRelease={() => {
+                setVelocity({ y: 0, x: body.velocity.x })
               }}
             />
             {/* S */}
             <Input
               keyCode={83}
               onDown={() => {
-                // setY(y + 2)
+                setVelocity({ y: 2, x: body.velocity.x })
+              }}
+              onRelease={() => {
+                setVelocity({ y: 0, x: body.velocity.x })
               }}
             />
 
-            <Sprite image="/static/bunny.png" x={x} y={0} />
+            <Sprite
+              image="/static/bunny.png"
+              x={body.position.x}
+              y={body.position.y}
+              rotation={body.angle}
+              pivot={[6, 18]}
+            />
           </>
         )
       }}

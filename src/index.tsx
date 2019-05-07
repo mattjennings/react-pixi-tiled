@@ -9,7 +9,7 @@ ReactDOM.render(<App />, document.getElementById('root'))
 
 // quick way to scale up canvas to fill screen
 // https://github.com/kittykatattack/scaleToWindow
-const scale = () => scaleToWindow(document.getElementById('root').querySelector('canvas'))
+const scale = () => scaleToWindow(document.getElementById('root'))
 scale()
 window.addEventListener('resize', () => {
   scale()
