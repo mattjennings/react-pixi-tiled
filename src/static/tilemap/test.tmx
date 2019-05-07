@@ -594,16 +594,6 @@
 </data>
  </layer>
  <objectgroup name="Object Layer 1">
-  <object id="5" name="Pharoah" type="Enemy" x="112" y="160" width="32" height="32">
-   <properties>
-    <property name="testProperty" value="testValue"/>
-   </properties>
-  </object>
-  <object id="8" name="Pharoah" type="Enemy" x="240" y="160" width="32" height="32">
-   <properties>
-    <property name="testProperty" value="testValue"/>
-   </properties>
-  </object>
   <object id="9" name="Pharoah" type="Enemy" x="176" y="160" width="32" height="32">
    <properties>
     <property name="testProperty" value="testValue"/>

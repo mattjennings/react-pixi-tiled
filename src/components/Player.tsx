@@ -11,8 +11,8 @@ const Player = () => {
     <MatterRectangleBody
       x={100}
       y={100}
-      width={20}
-      height={20}
+      width={16}
+      height={36}
       options={{
         inertia: Infinity,
         friction: 0,
@@ -69,7 +69,7 @@ const Player = () => {
               x={body.position.x}
               y={body.position.y}
               rotation={body.angle}
-              pivot={[6, 18]}
+              pivot={[5, 11]}
             />
           </>
         )
