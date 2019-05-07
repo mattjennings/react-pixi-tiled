@@ -29,10 +29,9 @@ const Tilemap = (props: { tilemapUrl: string; children?: any }) => {
 
   // create tilemap from url
   const tilemap = new PIXI.extras.TiledMap(props.tilemapUrl)
-  console.log(tilemap)
 
   // create object layers
-  const objectLayers = tilemap.layers.filter(layer => layer.constructor.name === 'ObjectLayer')
+  const objectLayers = tilemap.layers.filter(layer => layer.type === 'object')
 
   // create bodies from collision layers
   tilemap.layers
@@ -69,7 +68,7 @@ function instantiateObjectLayer(objectLayer: any) {
 }
 
 function createCollisionLayerBodies(engine: Engine, layer: any) {
-  if (layer.constructor.name === 'TileLayer') {
+  if (layer.type === 'tile') {
     layer.tiles.forEach(tile => {
       if (tile.properties.collision) {
         const body = Bodies.rectangle(tile.x, tile.y, tile.width, tile.height, { isStatic: true, friction: 0 })
