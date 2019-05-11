@@ -3,8 +3,6 @@ import React, { useRef, useEffect } from 'react'
 import Viewport from 'pixi-viewport'
 import { PixiComponent, Sprite, Stage } from '@inlet/react-pixi'
 import * as PIXI from 'pixi.js'
-import { useMatterEngine } from './matter/MatterEngine'
-import { Bounds } from 'matter-js'
 
 export interface CameraProps {
   cameraRef?: React.RefObject<Viewport>
@@ -42,14 +40,11 @@ export const CameraContext = React.createContext<CameraContextValue>({
 
 export default function Camera({ children, ...props }: CameraProps) {
   const camera = useRef<Viewport>(null)
-  const { debugRenderer } = useMatterEngine()
 
   function moveCamera(x: number, y: number) {
-    camera.current.moveCenter(x, y)
-    Bounds.shift(debugRenderer.current.bounds, {
-      x: camera.current.left - 8,
-      y: camera.current.top - 8
-    })
+    if (camera.current) {
+      camera.current.moveCenter(x, y)
+    }
   }
 
   return (

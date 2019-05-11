@@ -3,8 +3,9 @@ import React, { Suspense } from 'react'
 import * as PIXI from 'pixi.js'
 import useResources from '../hooks/useResources'
 import Enemy from './Enemy'
-import { useMatterEngine } from './matter/MatterEngine'
-import { Engine, Body, Bodies, World } from 'matter-js'
+import { usePhysicsWorld } from './physics/PhysicsWorld'
+import { World, Body, Box } from 'p2'
+import groundMaterial from '../materials/groundMaterial'
 
 export interface PixiTilemapProps {
   tilemap: typeof PIXI.extras.TiledMap
@@ -25,7 +26,7 @@ export interface TilemapProps {
 
 const Tilemap = (props: { tilemapUrl: string; children?: any }) => {
   useResources([props.tilemapUrl])
-  const { engine } = useMatterEngine()
+  const physicsWorld = usePhysicsWorld()
 
   // create tilemap from url
   const tilemap = new PIXI.extras.TiledMap(props.tilemapUrl)
@@ -36,7 +37,7 @@ const Tilemap = (props: { tilemapUrl: string; children?: any }) => {
   // create bodies from collision layers
   tilemap.layers
     .filter(layer => layer.properties.collision)
-    .map(layer => createCollisionLayerBodies(engine.current, layer))
+    .map(layer => createCollisionLayerBodies(physicsWorld.current, layer))
 
   // iterate through each layer and instantiate the objects into components
   const instantiatedLayers = objectLayers.map((layer, index) => (
@@ -67,12 +68,18 @@ function instantiateObjectLayer(objectLayer: any) {
   })
 }
 
-function createCollisionLayerBodies(engine: Engine, layer: any) {
+function createCollisionLayerBodies(physicsWorld: World, layer: any) {
   if (layer.type === 'tile') {
     layer.tiles.forEach(tile => {
       if (tile.properties.collision) {
-        const body = Bodies.rectangle(tile.x, tile.y, tile.width, tile.height, { isStatic: true, friction: 0 })
-        World.add(engine.world, body)
+        const body = new Body({
+          position: [tile.x, tile.y],
+          mass: 0 // makes it static
+        })
+        const shape = new Box({ width: tile.width, height: tile.height })
+        shape.material = groundMaterial
+        body.addShape(shape)
+        physicsWorld.addBody(body)
       }
     })
   }

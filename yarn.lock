@@ -752,6 +752,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.8.tgz#e5d71173c95533be9842b2c798978f095f912aab"
   integrity sha512-szA3x/3miL90ZJxUCzx9haNbK5/zmPieGraZEe4WI+3srN0eGLiT22NXeMHmyhNEopn+IrxqMc7wdVwvPl8meg==
 
+"@types/p2@^0.7.32":
+  version "0.7.32"
+  resolved "https://registry.yarnpkg.com/@types/p2/-/p2-0.7.32.tgz#dda9f5f6a84a2040b1a35ec887165971e8b99f48"
+  integrity sha512-IsghBH4E5lXPoW45GGdsMvg8W0qmq9GB1MxtNk3Tkt0rV/2EujJsl8SXEII6TZpnRsb9MHQpxAg8XUVBkzJ+kQ==
+
 "@types/pixi.js@^4.8.7":
   version "4.8.7"
   resolved "https://registry.yarnpkg.com/@types/pixi.js/-/pixi.js-4.8.7.tgz#23cea9ce7aaf6a51223a8fbe3c3d1c89f6048698"
@@ -3906,6 +3911,13 @@ p-try@^2.0.0:
   resolved "https://registry.yarnpkg.com/p-try/-/p-try-2.2.0.tgz#cb2868540e313d61de58fafbe35ce9004d5540e6"
   integrity sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==
 
+p2@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/p2/-/p2-0.7.1.tgz#25f2474d9bc3a6d3140a1da26a67c9e118ac9543"
+  integrity sha1-JfJHTZvDptMUCh2iamfJ4RislUM=
+  dependencies:
+    poly-decomp "0.1.1"
+
 pako@~1.0.5:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.10.tgz#4328badb5086a426aa90f541977d4955da5c9732"
@@ -4107,6 +4119,11 @@ pkg-dir@^3.0.0:
   integrity sha512-/E57AYkoeQ25qkxMj5PBOVgF8Kiu/h7cYS30Z5+R7WaiCCBfLq58ZI/dSeaEKb9WVJV5n/03QwrN3IeWIFllvw==
   dependencies:
     find-up "^3.0.0"
+
+poly-decomp@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/poly-decomp/-/poly-decomp-0.1.1.tgz#9f68c4fa558663791c9ba4c2df7283f3096c23c9"
+  integrity sha1-n2jE+lWGY3kcm6TC33KD8wlsI8k=
 
 portfinder@^1.0.20:
   version "1.0.20"

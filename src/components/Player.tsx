@@ -2,79 +2,49 @@ import { Sprite } from '@inlet/react-pixi'
 import React, { useContext, useEffect, useState } from 'react'
 import { CameraContext } from './Camera'
 import Input from './Input'
-import MatterRectangleBody from './matter/MatterRectangleBody'
+import { Box, ContactMaterial, Material } from 'p2'
+import PhysicsBody from './physics/PhysicsBody'
+import groundMaterial from '../materials/groundMaterial'
+
+export const playerMaterial = new Material()
+const groundContactMaterial = new ContactMaterial(groundMaterial, playerMaterial, {
+  friction: 0,
+  restitution: 0
+})
 
 const Player = () => {
-  const { camera, moveCamera } = useContext(CameraContext)
+  const { moveCamera } = useContext(CameraContext)
 
   return (
-    <MatterRectangleBody
+    <PhysicsBody
       x={100}
       y={100}
-      width={16}
-      height={36}
-      options={{
-        inertia: Infinity,
-        friction: 0,
-        frictionStatic: 0
-      }}
+      mass={1}
+      fixedRotation
+      roundNearestPixel
+      shape={new Box({ width: 16, height: 36 })}
+      material={playerMaterial}
+      contactMaterials={[groundContactMaterial]}
     >
-      {({ setVelocity, body }) => {
-        moveCamera(body.position.x, body.position.y)
+      {({ setVelocity, body, position }) => {
+        moveCamera(position.x, position.y)
+
         return (
           <>
             {/* D */}
-            <Input
-              keyCode={68}
-              onDown={() => {
-                setVelocity({ x: 2, y: body.velocity.y })
-              }}
-              onRelease={() => {
-                setVelocity({ x: 0, y: body.velocity.y })
-              }}
-            />
+            <Input keyCode={68} onDown={() => setVelocity({ x: 2 })} onRelease={() => setVelocity({ x: 0 })} />
             {/* A */}
-            <Input
-              keyCode={65}
-              onDown={() => {
-                setVelocity({ x: -2, y: body.velocity.y })
-              }}
-              onRelease={() => {
-                setVelocity({ x: 0, y: body.velocity.y })
-              }}
-            />
+            <Input keyCode={65} onDown={() => setVelocity({ x: -2 })} onRelease={() => setVelocity({ x: 0 })} />
             {/* W */}
-            <Input
-              keyCode={87}
-              onDown={() => {
-                setVelocity({ y: -2, x: body.velocity.x })
-              }}
-              onRelease={() => {
-                setVelocity({ y: 0, x: body.velocity.x })
-              }}
-            />
+            <Input keyCode={87} onDown={() => setVelocity({ y: -2 })} onRelease={() => setVelocity({ y: 0 })} />
             {/* S */}
-            <Input
-              keyCode={83}
-              onDown={() => {
-                setVelocity({ y: 2, x: body.velocity.x })
-              }}
-              onRelease={() => {
-                setVelocity({ y: 0, x: body.velocity.x })
-              }}
-            />
+            <Input keyCode={83} onDown={() => setVelocity({ y: 2 })} onRelease={() => setVelocity({ y: 0 })} />
 
-            <Sprite
-              image="/static/bunny.png"
-              x={body.position.x}
-              y={body.position.y}
-              rotation={body.angle}
-              pivot={[5, 11]}
-            />
+            <Sprite image="/static/bunny.png" x={position.x} y={position.y} rotation={body.angle} pivot={[5, 11]} />
           </>
         )
       }}
-    </MatterRectangleBody>
+    </PhysicsBody>
   )
 }
 
