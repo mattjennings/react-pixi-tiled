@@ -6,6 +6,7 @@ import Enemy from './Enemy'
 import { usePhysicsWorld } from './physics/PhysicsWorld'
 import { World, Body, Box } from 'p2'
 import groundMaterial from '../materials/groundMaterial'
+import PhysicsBody from './physics/PhysicsBody'
 
 export interface PixiTilemapProps {
   tilemap: typeof PIXI.extras.TiledMap
@@ -26,7 +27,6 @@ export interface TilemapProps {
 
 const Tilemap = (props: { tilemapUrl: string; children?: any }) => {
   useResources([props.tilemapUrl])
-  const physicsWorld = usePhysicsWorld()
 
   // create tilemap from url
   const tilemap = new PIXI.extras.TiledMap(props.tilemapUrl)
@@ -35,9 +35,9 @@ const Tilemap = (props: { tilemapUrl: string; children?: any }) => {
   const objectLayers = tilemap.layers.filter(layer => layer.type === 'object')
 
   // create bodies from collision layers
-  tilemap.layers
+  const collisionLayers = tilemap.layers
     .filter(layer => layer.properties.collision)
-    .map(layer => createCollisionLayerBodies(physicsWorld.current, layer))
+    .map((layer, index) => <Container key={index}>{createCollisionLayer(layer)}</Container>)
 
   // iterate through each layer and instantiate the objects into components
   const instantiatedLayers = objectLayers.map((layer, index) => (
@@ -47,6 +47,7 @@ const Tilemap = (props: { tilemapUrl: string; children?: any }) => {
   return (
     <PixiTilemap tilemap={tilemap}>
       {instantiatedLayers}
+      {collisionLayers}
       {props.children}
     </PixiTilemap>
   )
@@ -68,19 +69,25 @@ function instantiateObjectLayer(objectLayer: any) {
   })
 }
 
-function createCollisionLayerBodies(physicsWorld: World, layer: any) {
+function createCollisionLayer(layer: any) {
   if (layer.type === 'tile') {
-    layer.tiles.forEach(tile => {
-      if (tile.properties.collision) {
-        const body = new Body({
-          position: [tile.x, tile.y],
-          mass: 0 // makes it static
-        })
+    return layer.tiles
+      .filter(tile => !!tile.properties.collision)
+      .map((tile, index) => {
         const shape = new Box({ width: tile.width, height: tile.height })
-        shape.material = groundMaterial
-        body.addShape(shape)
-        physicsWorld.addBody(body)
-      }
-    })
+
+        return (
+          <PhysicsBody
+            key={`${layer.name}-collision-${index}`}
+            x={tile.x}
+            y={tile.y}
+            shape={shape}
+            material={groundMaterial}
+            mass={0}
+            debug
+            disableTickRender
+          />
+        )
+      })
   }
 }

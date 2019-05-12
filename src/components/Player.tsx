@@ -2,7 +2,7 @@ import { Sprite } from '@inlet/react-pixi'
 import React, { useContext, useEffect, useState } from 'react'
 import { CameraContext } from './Camera'
 import Input from './Input'
-import { Box, ContactMaterial, Material } from 'p2'
+import { Box, ContactMaterial, Material, Circle, Shape } from 'p2'
 import PhysicsBody from './physics/PhysicsBody'
 import groundMaterial from '../materials/groundMaterial'
 
@@ -15,14 +15,16 @@ const groundContactMaterial = new ContactMaterial(groundMaterial, playerMaterial
 const Player = () => {
   const { moveCamera } = useContext(CameraContext)
 
+  const shape = new Box({ width: 16, height: 36 })
   return (
     <PhysicsBody
       x={100}
       y={100}
       mass={1}
+      debug
       fixedRotation
       roundNearestPixel
-      shape={new Box({ width: 16, height: 36 })}
+      shape={shape}
       material={playerMaterial}
       contactMaterials={[groundContactMaterial]}
     >
@@ -40,7 +42,13 @@ const Player = () => {
             {/* S */}
             <Input keyCode={83} onDown={() => setVelocity({ y: 2 })} onRelease={() => setVelocity({ y: 0 })} />
 
-            <Sprite image="/static/bunny.png" x={position.x} y={position.y} rotation={body.angle} pivot={[5, 11]} />
+            <Sprite
+              image="/static/bunny.png"
+              x={position.x}
+              y={position.y}
+              rotation={body.angle}
+              // pivot={[5, 11]}
+            />
           </>
         )
       }}

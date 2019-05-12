@@ -5,7 +5,7 @@ import { Box } from 'p2'
 
 const Enemy = ({ x, y }: { x: number; y: number }) => {
   return (
-    <PhysicsBody x={x} y={y} shape={new Box({ width: 20, height: 46 })}>
+    <PhysicsBody x={x} y={y} shape={new Box({ width: 20, height: 46 })} debug>
       {({ body }) => (
         <Sprite
           image="/static/enemy.gif"

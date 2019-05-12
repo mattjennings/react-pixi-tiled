@@ -4,10 +4,12 @@ import { useTick } from '@inlet/react-pixi'
 /**
  * Forces a component render on every tick
  */
-export default function useRenderOnTick() {
+export default function useRenderOnTick(args: { disable?: boolean } = {}) {
   const forceUpdate = useForceUpdate()
 
   useTick(() => {
-    forceUpdate()
+    if (!args.disable) {
+      forceUpdate()
+    }
   })
 }
